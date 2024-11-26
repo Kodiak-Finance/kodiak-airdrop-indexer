@@ -62,7 +62,7 @@ loadWhitelist().then((csvData) => {
             v2Swaps,
             delegates,
             undelegates,
-        } = await decodeLogs(logs, entities);
+        } = await decodeLogs(logs);
         prices.add(...transfers.map((transfer) => transfer._address));
         await prices.fetch();
 
@@ -95,6 +95,9 @@ loadWhitelist().then((csvData) => {
             );
         }
 
+        entities.defer(V2Pair, ...v2Swaps.map(({ _address }) => _address));
+        entities.defer(V3Pool, ...v3Swaps.map(({ _address }) => _address));
+
         await entities.load(V2Pair);
         await entities.load(V3Pool);
 
@@ -105,6 +108,9 @@ loadWhitelist().then((csvData) => {
         // ------------------------- SWAPS -------------------------
 
         for (const swap of v2Swaps) {
+            if (entities.get(V2Pair, swap._address, false) === undefined) {
+                continue;
+            }
             entities.add(
                 new V2Swap({
                     id: swap._txHash + "-" + swap._logIndex,
@@ -127,6 +133,9 @@ loadWhitelist().then((csvData) => {
             await createToken(entities, v2Pair.token1, prices);
         }
         for (const swap of v3Swaps) {
+            if (entities.get(V3Pool, swap._address, false) === undefined) {
+                continue;
+            }
             const v3Pool = entities.getOrFail(V3Pool, swap._address, false);
             const p = await prices.get([v3Pool.token0, v3Pool.token1]);
             await createToken(entities, v3Pool.token0, prices);

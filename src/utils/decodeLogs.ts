@@ -46,10 +46,7 @@ export function wrapLog<T extends Object>(log: DecodeLogRequirement, data: T) {
     } satisfies WithAddress<T>;
 }
 
-export async function decodeLogs<L extends DecodeLogRequirement>(
-    logs: L[],
-    entities: EntityManager
-) {
+export async function decodeLogs<L extends DecodeLogRequirement>(logs: L[]) {
     const events = logs.reduce(
         (acc, log) => {
             switch (log.topics[0]) {
@@ -124,30 +121,9 @@ export async function decodeLogs<L extends DecodeLogRequirement>(
             undelegates: WithAddress<bgtAbi.DropBoostEventArgs>[];
         }
     );
-    entities.defer(V2Pair, ...events.v2Swaps.map(({ _address }) => _address));
-    entities.defer(V3Pool, ...events.v3Swaps.map(({ _address }) => _address));
-
-    await entities.load(V2Pair);
-    await entities.load(V3Pool);
-
-    const filteredV2Swaps: typeof events.v2Swaps = [];
-    const filteredV3Swaps: typeof events.v3Swaps = [];
-
-    for (const swap of events.v2Swaps) {
-        if (entities.get(V2Pair, swap._address, false)) {
-            filteredV2Swaps.push(swap);
-        }
-    }
-
-    for (const swap of events.v3Swaps) {
-        if (entities.get(V3Pool, swap._address, false)) {
-            filteredV3Swaps.push(swap);
-        }
-    }
-
     return {
         ...events,
-        v2Swaps: filteredV2Swaps,
-        v3Swaps: filteredV3Swaps,
+        v2Swaps: events.v2Swaps,
+        v3Swaps: events.v3Swaps,
     };
 }
