@@ -2,8 +2,9 @@ import * as fs from "fs";
 import csv from "csv-parser";
 
 const args = process.argv.slice(2);
-const input_file = args[0] ?? "raw_output.csv";
-const output_file = args[1] ?? "output.csv";
+const minPoints = parseInt(args[0] ?? "4");
+const input_file = args[1] ?? "raw_output.csv";
+const output_file = args[2] ?? "filtered_raw_output.csv";
 
 interface UserPoints {
     user_: string;
@@ -24,7 +25,7 @@ const loadCSV = async (filePath: string): Promise<UserPoints[]> => {
 };
 
 const writeCSV = (filePath: string, data: UserPoints[]) => {
-    const header = "user_,percentage\n";
+    const header = "user_,points\n";
     const rows = data.map((row) => `${row.user_},${row.points}`).join("\n");
     fs.writeFileSync(filePath, header + rows);
 };
@@ -32,30 +33,7 @@ const writeCSV = (filePath: string, data: UserPoints[]) => {
 const processCSV = async (inputFile: string, outputFile: string) => {
     const data = await loadCSV(inputFile);
 
-    const totalSupply = data.reduce(
-        (acc, item) => acc + item.points * item.points,
-        0
-    );
-
-    const groups: Record<number, number> = {};
-
-    data.forEach((item) => {
-        groups[item.points] = groups[item.points] + 1 || 1;
-    });
-
-    const updatedData = data.map((item) => ({
-        user_: item.user_,
-        points: ((item.points * item.points) / totalSupply) * 100,
-    }));
-
-    const sum = updatedData.reduce((acc, item) => acc + item.points, 0);
-    console.log("Total supply:", totalSupply);
-    console.log("Total percentage:", sum);
-    const groupsKeys = Object.keys(groups);
-    groupsKeys.forEach((key) => {
-        console.log(` * With ${key} points: ${groups[key as any]}`);
-    });
-
+    const updatedData = data.filter((item) => item.points >= minPoints);
     writeCSV(outputFile, updatedData);
 };
 
