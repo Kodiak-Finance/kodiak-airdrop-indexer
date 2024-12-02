@@ -1,8 +1,10 @@
 ## UPDATE 2 December 2024
 ```
-After reviewing the originally submitted RFA list of addresses and weights to the Berachain Foundation, Kodiak has been informed by the Berachain Foundation that the list of eligible addresses for the RFA Testnet Allocation must be limited to 1,500 to maximize RFA rewards for users.
+While Kodiak’s RFA filtering criteria remain unchanged, we are only including addresses that earned at least 4 points (as outlined in the criteria in the original post below) to be eligible for the Testnet Allocation of RFA rewards granted by the Berachain Foundation. 
 
-While Kodiak's RFA filtering criteria remain unchanged, only addresses that earned at least 4 points (as outlined in the criteria in the original post below) are eligible for the Testnet Allocation of RFA rewards granted by the Berachain Foundation. The total number of addresses meeting the 4-point threshold was 1,960, exceeding the 1,500 limit by 460. However, we secured an exception to include all 1,960 addresses to ensure everyone with 4 or more points qualifies.
+This is to ensure that rewards are concentrated and maximized for our community.
+
+The total number of addresses meeting the 4-point threshold was 1,960. You can check the list of addresses and how many points each address got in the csv output here: https://github.com/Kodiak-Finance/kodiak-airdrop-indexer/blob/master/raw_output.csv
 
 The eligibility snapshot for Kodiak's submission to the Berachain RFA program was taken on October 7, 2024, at 22:23:59 UTC (Block 5290000). Any activity, such as swaps or delegations, completed after this timestamp was not factored into the calculations.
 Per the RFA program requirements, 10–15% of each protocol's allocation must be airdropped to testnet users of Berachain's Artio and bArtio testnets. Kodiak chose the maximum allocation of 15% for the Testnet Allocation.
@@ -16,7 +18,7 @@ our testnet phases (on both Artio and bArtio)
 
 We had over 500k users interacting with the protocol.  
 
-In order to meaningfully reward our most engaged users and counteract obvious sybils, here's the eligibility criteria used.
+In order to meaningfully reward our most engaged users and counteract obvious sybils, here is the eligibility criteria used.
 
 Each user is rated up to 10 points.
 
