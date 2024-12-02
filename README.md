@@ -1,4 +1,14 @@
+## UPDATE 2 December 2024
+```
+After reviewing the originally submitted RFA list of addresses and weights to the Berachain Foundation, Kodiak has been informed by the Berachain Foundation that the list of eligible addresses for the RFA Testnet Allocation must be limited to 1,500 to maximize RFA rewards for users.
 
+While Kodiak's RFA filtering criteria remain unchanged, only addresses that earned at least 4 points (as outlined in the criteria in the original post below) are eligible for the Testnet Allocation of RFA rewards granted by the Berachain Foundation. The total number of addresses meeting the 4-point threshold was 1,960, exceeding the 1,500 limit by 460. However, we secured an exception to include all 1,960 addresses to ensure everyone with 4 or more points qualifies.
+
+The eligibility snapshot for Kodiak's submission to the Berachain RFA program was taken on October 7, 2024, at 22:23:59 UTC (Block 5290000). Any activity, such as swaps or delegations, completed after this timestamp was not factored into the calculations.
+Per the RFA program requirements, 10–15% of each protocol's allocation must be airdropped to testnet users of Berachain's Artio and bArtio testnets. Kodiak chose the maximum allocation of 15% for the Testnet Allocation.
+
+Please note that this information pertains exclusively to Kodiak's RFA submission to the Berachain Foundation and is unrelated to any other airdrops or grants.
+```
 ## Metholodogy
 ```bash
 Kodiak wants to reward our most loyal users that provided us valuable feedback and interacted with our protocol during 
